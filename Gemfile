@@ -5,5 +5,5 @@ group :development do
   gem 'rdoc'
   gem 'bundler'
   gem 'jeweler'
-  gem 'rcov'
+  gem 'simplecov'
 end
