@@ -39,6 +39,31 @@ module Chessboard
       board.at(1, 5).should eq :black_king
     end
 
+    it "can parse graphical representation of a board" do
+      board = parse_board <<-END
+        ┌───┬───┬───┬───┬───┬───┬───┬───┐
+        │   │   │   │   │   │   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │   │   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │   │   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │   │   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │( )│   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │( )│   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │[♙]│   │   │   │
+        ├───┼───┼───┼───┼───┼───┼───┼───┤
+        │   │   │   │   │   │   │   │   │
+        └───┴───┴───┴───┴───┴───┴───┴───┘
+      END
+
+      board.selected_square.should eq [1, 4]
+      board.marked_squares.should =~ [[2, 4], [3, 4]]
+    end
+
     it "raises an error on malformed boards" do
       expect_invalid_board '---'
 

@@ -17,25 +17,39 @@ module Chessboard
         '♔' => :white_king,
       }
 
+      class AnnotatedBoard < BasicObject
+        attr_reader :marked_squares
+        attr_accessor :selected_square
+
+        def initialize
+          @board          = Board.new
+          @marked_squares = []
+        end
+
+        def method_missing(name, *args, &block)
+          @board.send name, *args, &block
+        end
+      end
+
       def parse_board(text)
         raise 'Malformed board' unless text =~ /\A
           (\s+)┌───┬───┬───┬───┬───┬───┬───┬───┐\n
           (
-            \1(│[ ][ #{PIECE_NAMES.keys.join('')}][ ]){8}│\n
+            \1(│[\[( ][ #{PIECE_NAMES.keys.join('')}][\]) ]){8}│\n
             \1├───┼───┼───┼───┼───┼───┼───┼───┤\n
           ){7}
-          \1(│[ ][ #{PIECE_NAMES.keys.join('')}][ ]){8}│\n
+          \1(│[\[( ][ #{PIECE_NAMES.keys.join('')}][\]) ]){8}│\n
           \1└───┴───┴───┴───┴───┴───┴───┴───┘\n?
         \Z/xu
 
-        board = Board.new
+        board     = AnnotatedBoard.new
+        positions = [7, 6, 5, 4, 3, 2, 1, 0].product([0, 1, 2, 3, 4, 5, 6, 7])
 
-        text.
-          scan(/│ (.) /u).
-          map(&:first).
-          zip([7, 6, 5, 4, 3, 2, 1, 0].product([0, 1, 2, 3, 4, 5, 6, 7])).
-          reject { |position, character| PIECE_NAMES.has_key? character }.
-          each { |character, (file, rank)| board.put file, rank, PIECE_NAMES[character] }
+        positions.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
+          board.put file, rank, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
+          board.selected_square = [file, rank] if marker == '['
+          board.marked_squares.push [file, rank] if marker == '('
+        end
 
         board
       end
