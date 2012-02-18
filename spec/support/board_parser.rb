@@ -43,7 +43,7 @@ module Chessboard
         \Z/xu
 
         board     = AnnotatedBoard.new
-        positions = [7, 6, 5, 4, 3, 2, 1, 0].product([0, 1, 2, 3, 4, 5, 6, 7])
+        positions = 0.upto(7).to_a.product(0.upto(7).to_a)
 
         positions.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
           board.put file, rank, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
