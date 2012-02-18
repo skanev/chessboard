@@ -6,4 +6,6 @@ group :development do
   gem 'bundler'
   gem 'jeweler'
   gem 'simplecov'
+  gem 'guard'
+  gem 'guard-rspec'
 end
