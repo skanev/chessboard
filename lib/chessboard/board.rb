@@ -11,5 +11,9 @@ module Chessboard
     def at(square)
       @pieces[square]
     end
+
+    Square.names.each do |name|
+      define_method(name) { at Square.new(name) }
+    end
   end
 end

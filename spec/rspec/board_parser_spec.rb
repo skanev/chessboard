@@ -24,19 +24,19 @@ module Chessboard
         └───┴───┴───┴───┴───┴───┴───┴───┘
       END
 
-      board.at(Square.new('a1')).should eq :white_pawn
-      board.at(Square.new('b1')).should eq :white_knight
-      board.at(Square.new('c1')).should eq :white_bishop
-      board.at(Square.new('d1')).should eq :white_rook
-      board.at(Square.new('e1')).should eq :white_queen
-      board.at(Square.new('f1')).should eq :white_king
+      board.a1.should eq :white_pawn
+      board.b1.should eq :white_knight
+      board.c1.should eq :white_bishop
+      board.d1.should eq :white_rook
+      board.e1.should eq :white_queen
+      board.f1.should eq :white_king
 
-      board.at(Square.new('a2')).should eq :black_pawn
-      board.at(Square.new('b2')).should eq :black_knight
-      board.at(Square.new('c2')).should eq :black_bishop
-      board.at(Square.new('d2')).should eq :black_rook
-      board.at(Square.new('e2')).should eq :black_queen
-      board.at(Square.new('f2')).should eq :black_king
+      board.a2.should eq :black_pawn
+      board.b2.should eq :black_knight
+      board.c2.should eq :black_bishop
+      board.d2.should eq :black_rook
+      board.e2.should eq :black_queen
+      board.f2.should eq :black_king
     end
 
     it "can parse graphical representation of a board" do
