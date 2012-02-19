@@ -4,12 +4,12 @@ module Chessboard
       @pieces = {}
     end
 
-    def put(file, rank, piece)
-      @pieces[[file, rank]] = piece
+    def put(square, piece)
+      @pieces[square] = piece
     end
 
-    def at(file, rank)
-      @pieces[[file, rank]]
+    def at(square)
+      @pieces[square]
     end
   end
 end

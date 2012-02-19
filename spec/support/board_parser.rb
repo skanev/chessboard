@@ -43,12 +43,13 @@ module Chessboard
         \Z/xu
 
         board     = AnnotatedBoard.new
-        positions = 0.upto(7).to_a.product(0.upto(7).to_a)
+        positions = 8.downto(1).to_a.product('a'.upto('h').to_a)
 
         positions.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
-          board.put file, rank, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
-          board.selected_square = [file, rank] if marker == '['
-          board.marked_squares.push [file, rank] if marker == '('
+          square = Square.new("#{rank}#{file}")
+          board.put square, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
+          board.selected_square = square if marker == '['
+          board.marked_squares.push square if marker == '('
         end
 
         board
