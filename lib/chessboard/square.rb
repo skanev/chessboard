@@ -19,5 +19,11 @@ module Chessboard
     def hash
       @name.hash
     end
+
+    class << self
+      def names
+        %w[8 7 6 5 4 3 2 1].product(%w[a b c d e f g h]).map(&:reverse).map(&:join)
+      end
+    end
   end
 end

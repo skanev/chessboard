@@ -42,10 +42,9 @@ module Chessboard
           \1└───┴───┴───┴───┴───┴───┴───┴───┘\n?
         \Z/xu
 
-        board     = AnnotatedBoard.new
-        positions = 8.downto(1).to_a.product('a'.upto('h').to_a)
+        board = AnnotatedBoard.new
 
-        positions.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
+        Square.names.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
           square = Square.new("#{rank}#{file}")
           board.put square, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
           board.selected_square = square if marker == '['
