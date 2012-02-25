@@ -28,13 +28,15 @@ module Chessboard
       board.b1.should eq :white_knight
       board.c1.should eq :white_bishop
       board.d1.should be_a Rook
+      board.d1.should be_white
       board.e1.should eq :white_queen
       board.f1.should eq :white_king
 
       board.a2.should eq :black_pawn
       board.b2.should eq :black_knight
       board.c2.should eq :black_bishop
-      board.d2.should eq :black_rook
+      board.d2.should be_a Rook
+      board.d2.should be_black
       board.e2.should eq :black_queen
       board.f2.should eq :black_king
     end
