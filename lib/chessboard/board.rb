@@ -12,6 +12,10 @@ module Chessboard
       @pieces[square]
     end
 
+    def allowing_move?(from, to)
+      @pieces[from].possible_moves(self).include? to
+    end
+
     Square.names.each do |name|
       define_method(name) { at Square.new(name) }
     end
