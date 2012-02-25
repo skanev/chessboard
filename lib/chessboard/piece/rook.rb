@@ -4,11 +4,11 @@ module Chessboard
       @color = color
     end
 
-    def possible_moves(position)
-      line(position, &:down) +
-        line(position, &:up) +
-        line(position, &:left) +
-        line(position, &:right)
+    def possible_moves(board, position)
+      line(board, position, &:down) +
+        line(board, position, &:up) +
+        line(board, position, &:left) +
+        line(board, position, &:right)
     end
 
     def white?
@@ -21,10 +21,16 @@ module Chessboard
 
     private
 
-    def line(square, &block)
-      squares = [square]
-      squares << yield(squares.last) until squares.last.nil?
-      squares[1...-1]
+    def line(board, square)
+      squares = []
+      square  = yield square
+
+      until square.nil? or board.at(square)
+        squares << square
+        square = yield square
+      end
+
+      squares
     end
 
     class << self

@@ -13,7 +13,7 @@ module Chessboard
     end
 
     def allowed_moves(square)
-      @pieces[square].possible_moves(square)
+      @pieces[square].possible_moves(self, square)
     end
 
     Square.names.each do |name|
