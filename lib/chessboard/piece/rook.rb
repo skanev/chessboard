@@ -1,7 +1,15 @@
 module Chessboard
   class Rook
     def possible_moves(position)
-      [Square.new('e3')]
+      line(position, &:down)
+    end
+
+    private
+
+    def line(square, &block)
+      squares = [square]
+      squares << yield(squares.last) until squares.last.nil?
+      squares[1..-1]
     end
   end
 end
