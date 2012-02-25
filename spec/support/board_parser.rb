@@ -3,18 +3,18 @@ module Chessboard
   module SpecSupport
     module BoardParser
       PIECE_NAMES = {
-        '♟' => :black_pawn,
-        '♞' => :black_knight,
-        '♝' => :black_bishop,
-        '♜' => :black_rook,
-        '♛' => :black_queen,
-        '♚' => :black_king,
-        '♙' => :white_pawn,
-        '♘' => :white_knight,
-        '♗' => :white_bishop,
-        '♖' => :white_rook,
-        '♕' => :white_queen,
-        '♔' => :white_king,
+        '♟' => -> { :black_pawn },
+        '♞' => -> { :black_knight },
+        '♝' => -> { :black_bishop },
+        '♜' => -> { :black_rook },
+        '♛' => -> { :black_queen },
+        '♚' => -> { :black_king },
+        '♙' => -> { :white_pawn },
+        '♘' => -> { :white_knight },
+        '♗' => -> { :white_bishop },
+        '♖' => -> { Rook.new },
+        '♕' => -> { :white_queen },
+        '♔' => -> { :white_king },
       }
 
       class AnnotatedBoard < BasicObject
@@ -46,7 +46,7 @@ module Chessboard
 
         Square.names.zip(text.scan(/│(.)(.)./u)).each do |(file, rank), (marker, character)|
           square = Square.new("#{rank}#{file}")
-          board.put square, PIECE_NAMES[character] if PIECE_NAMES.has_key? character
+          board.put square, PIECE_NAMES[character].call if PIECE_NAMES.has_key? character
           board.selected_square = square if marker == '['
           board.marked_squares.push square if marker == '('
         end

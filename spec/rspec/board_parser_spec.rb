@@ -27,7 +27,7 @@ module Chessboard
       board.a1.should eq :white_pawn
       board.b1.should eq :white_knight
       board.c1.should eq :white_bishop
-      board.d1.should eq :white_rook
+      board.d1.should be_a Rook
       board.e1.should eq :white_queen
       board.f1.should eq :white_king
 
