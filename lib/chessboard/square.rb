@@ -36,6 +36,22 @@ module Chessboard
       transform { |rank, file| [rank, file - 1] }
     end
 
+    def up_left
+      transform { |rank, file| [rank - 1, file + 1] }
+    end
+
+    def up_right
+      transform { |rank, file| [rank + 1, file + 1] }
+    end
+
+    def down_left
+      transform { |rank, file| [rank - 1, file - 1] }
+    end
+
+    def down_right
+      transform { |rank, file| [rank + 1, file - 1] }
+    end
+
     private
 
     def transform

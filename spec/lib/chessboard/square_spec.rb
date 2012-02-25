@@ -57,11 +57,23 @@ module Chessboard
         e4.down.should eq e3
       end
 
+      it "can find the diagonal squares" do
+        e4.up_left.should eq d5
+        e4.up_right.should eq f5
+        e4.down_left.should eq d3
+        e4.down_right.should eq f3
+      end
+
       it "returns nil if the square does not exist" do
         a1.down.should be_nil
         a1.left.should be_nil
         h8.up.should be_nil
         h8.right.should be_nil
+
+        a8.up_left.should be_nil
+        h8.up_right.should be_nil
+        a1.down_left.should be_nil
+        h1.down_right.should be_nil
       end
     end
 
