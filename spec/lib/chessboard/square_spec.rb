@@ -3,7 +3,7 @@ require 'spec_helper'
 module Chessboard
   describe Square do
     it "represents a valid chess square" do
-      Square.new('e4').name.should eq 'e4'
+      e4.name.should eq 'e4'
     end
 
     it "raises an error when constructed with an invalid square" do
@@ -13,18 +13,18 @@ module Chessboard
     end
 
     it "implements equality" do
-      Square.new('e4').should eq Square.new('e4')
+      e4.should eq e4
 
-      Square.new('e4').should_not eq Square.new('e5')
+      e4.should_not eq e5
     end
 
     it "can be used as a hash key" do
-      {Square.new('e4') => :knight}[Square.new('e4')].should eq :knight
+      {e4 => :knight}[e4].should eq :knight
     end
 
     it "has a nice string representation" do
-      Square.new('e4').to_s.should eq 'e4'
-      Square.new('e4').inspect.should eq 'e4'
+      e4.to_s.should eq 'e4'
+      e4.inspect.should eq 'e4'
     end
 
     it "can tell all squares" do
@@ -38,6 +38,14 @@ module Chessboard
         a2 b2 c2 d2 e2 f2 g2 h2
         a1 b1 c1 d1 e1 f1 g1 h1
       ]
+    end
+
+    def method_missing(name, *args, &block)
+      if name =~ /\A[a-h][1-8]\Z/
+        Square.new(name.to_s)
+      else
+        super
+      end
     end
   end
 end
