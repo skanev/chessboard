@@ -25,12 +25,23 @@ module Chessboard
       squares = []
       square  = yield square
 
-      until square.nil? or board.at(square)
+      until square.nil? or own? board.at(square)
         squares << square
+        break if opponent? board.at(square)
         square = yield square
       end
 
       squares
+    end
+
+    def own?(piece)
+      piece and
+        ((white? and piece.white?) or
+        (black? and piece.black?))
+    end
+
+    def opponent?(piece)
+      piece and not own?(piece)
     end
 
     class << self
