@@ -20,42 +20,25 @@ module Chessboard
       @name.hash
     end
 
-    def left
-      transform { |rank, file| [rank - 1, file] }
-    end
-
-    def right
-      transform { |rank, file| [rank + 1, file] }
-    end
-
-    def up
-      transform { |rank, file| [rank, file + 1] }
-    end
-
-    def down
-      transform { |rank, file| [rank, file - 1] }
-    end
-
-    def up_left
-      transform { |rank, file| [rank - 1, file + 1] }
-    end
-
-    def up_right
-      transform { |rank, file| [rank + 1, file + 1] }
-    end
-
-    def down_left
-      transform { |rank, file| [rank - 1, file - 1] }
-    end
-
-    def down_right
-      transform { |rank, file| [rank + 1, file - 1] }
+    {
+      left:       [-1,  0],
+      right:      [ 1,  0],
+      up:         [ 0,  1],
+      down:       [ 0, -1],
+      up_left:    [-1,  1],
+      up_right:   [ 1,  1],
+      down_left:  [-1, -1],
+      down_right: [ 1, -1],
+    }.each do |name, offset|
+      define_method(name) do
+        transform { |position| [position[0] + offset[0], position[1] + offset[1]] }
+      end
     end
 
     private
 
     def transform
-      file, rank = yield @name[0].ord - ?a.ord, @name[1].ord - ?1.ord
+      file, rank = yield [@name[0].ord - ?a.ord, @name[1].ord - ?1.ord]
       position   = [file + ?a.ord, rank + ?1.ord].map(&:chr).join
 
       Square.new position if position =~ /\A[a-h][1-8]\Z/
