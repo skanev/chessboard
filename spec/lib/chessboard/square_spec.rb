@@ -40,6 +40,31 @@ module Chessboard
       ]
     end
 
+    describe "(adjancent)" do
+      it "can find out the square on the left" do
+        e4.left.should eq d4
+      end
+
+      it "can find out the square on the right" do
+        e4.right.should eq f4
+      end
+
+      it "can find out the square above" do
+        e4.up.should eq e5
+      end
+
+      it "can find out the square below" do
+        e4.down.should eq e3
+      end
+
+      it "returns nil if the square does not exist" do
+        a1.down.should be_nil
+        a1.left.should be_nil
+        h8.up.should be_nil
+        h8.right.should be_nil
+      end
+    end
+
     def method_missing(name, *args, &block)
       if name =~ /\A[a-h][1-8]\Z/
         Square.new(name.to_s)
