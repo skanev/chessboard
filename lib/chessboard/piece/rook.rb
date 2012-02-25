@@ -12,7 +12,7 @@ module Chessboard
     def line(square, &block)
       squares = [square]
       squares << yield(squares.last) until squares.last.nil?
-      squares[1..-1]
+      squares[1...-1]
     end
   end
 end

@@ -26,11 +26,11 @@ module Chessboard
     end
 
     def expect_allowed_moves(drawing)
-      board = parse_board drawing
+      board    = parse_board drawing
+      allowed  = board.allowed_moves(board.selected_square)
+      expected = board.marked_squares
 
-      board.marked_squares.each do |square|
-        board.should be_allowing_move board.selected_square, square
-      end
+      allowed.should =~ expected
     end
   end
 end

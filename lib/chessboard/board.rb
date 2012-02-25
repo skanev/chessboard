@@ -12,8 +12,8 @@ module Chessboard
       @pieces[square]
     end
 
-    def allowing_move?(from, to)
-      @pieces[from].possible_moves(from).include? to
+    def allowed_moves(square)
+      @pieces[square].possible_moves(square)
     end
 
     Square.names.each do |name|
